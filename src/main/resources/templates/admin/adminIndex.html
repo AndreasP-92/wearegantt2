@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<html xmlns:th ="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <script src='https://kit.fontawesome.com/a076d05399.js'></script>
+
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
+    <link href="/css/admin/adminIndex.css" type="text/css" rel="stylesheet">
+    <title>Admin Page</title>
+</head>
+<body>
+    <main class="container">
+        <a th:href="@{'/newsfeed/' + ${organization.getOrg_name()}}" style="color:black;">
+            <i class='fas fa-arrow-left mt-5' style='font-size:36px'></i>
+        </a>
+        <div class="row mt-5" >
+            <div class="col-sm">
+                <h1 th:text="${'Welcome Back ' + profile.profile_firstname} " class="text-center"></h1>
+            </div>
+        </div>
+
+<!-- === MENU BUTTONS === -->
+        <div class="row mt-5">
+            <div class="col-sm-6" align="center"><a href="/admin/lookupuser"><button type="button" class="btn btn-danger w-75 p-3">Users</button></a> </div>
+            <div class="col-sm-6" align="center"><a href="/admin/support/all"><button type="button" class="btn btn-danger w-75 p-3">Support</button></a> </div>
+        </div>
+        <div class="row mt-5">
+            <div class="col-sm-6" align="center"><a href="/admin/organization"><button type="button" class="btn btn-danger w-75 p-3">Look Up Organizations</button></a> </div>
+        </div>
+    </main>
+</div>
+</body>
+</html>

@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="en">
+<html lang="en" xmlns:th = "http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
+    <link href="css/main/register.css" type="text/css" rel="stylesheet">
+    <title>Register Your Profile</title>
+</head>
+<body>
+        <!--=================== Body ============================ -->
+    <header>
+        <!--=================== NAVIGATION Start ============================ -->
+        <div th:replace="partials/navbar :: navigation">
+
+        </div>
+    </header>
+        <!--=================== NAVIGATION Start ============================ -->
+
+
+<main class="container">
+
+        <div align="center">
+            <div class="col-sm-12">
+                <img th:src="@{/images/logo.png/}" style="">
+            </div>
+
+<!-- ==== REGISTER USER === -->
+            <form class="contact w-50" th:action="@{/saveUser}" method="post" id="registerForm">
+                <div class="valid" id="notFilled"></div>
+
+                <!-- USER EMAIL -->
+                <div class="form-group ml-5 mr-5">
+                    <label for="email">E-mail</label>
+                    <input class="form-control" type="text" id="email" required name="email" placeholder="Email">
+                </div>
+                <div th:if="${error}">
+                    <p class="valid" th:text="${error}"></p>
+                </div>
+
+                <!-- USER PASSWORD -->
+                <div class="form-group ml-5 mr-5">
+                    <label for="password">Password</label>
+                    <input class="form-control" type="password" id="password" required name="password" placeholder="Password">
+                    <div id="passwordValid" class="valid"></div>
+                </div>
+
+                <!-- REPEAT PASSWORD -->
+                <div class="form-group ml-5 mr-5">
+                    <label for="confirm_password">Repeat Password</label>
+                    <input class="form-control" type="password" id="confirm_password" required name="pass" placeholder="Password">
+                </div>
+
+                <!-- USER FIRST NAME-->
+                <div class="form-group ml-5 mr-5">
+                    <label for="firstname">First Name</label>
+                    <input class="form-control" type="text" id="firstname" required name="firstname" placeholder="Firstname">
+                </div>
+
+                <!-- USER LAST NAME -->
+                <div class="form-group ml-5 mr-5">
+                    <label for="lastname">Last Name</label>
+                    <input class="form-control" type="text" id="lastname" required name="lastname" placeholder="Lastname">
+                </div>
+
+                <!-- USER ADDRESS -->
+                <div class="form-group ml-5 mr-5">
+                    <label for="address">Address</label>
+                    <input class="form-control" type="text" id="address" required name="address" placeholder="Address">
+                </div>
+
+                <!-- USER PHONE -->
+                <div class="form-group ml-5 mr-5">
+                    <label for="phone">Phone Number</label>
+                    <input class="form-control" type="number" id="phone" required name="phone" placeholder="Phone">
+                </div>
+
+                <!-- USER COUNTRY -->
+                <div class="form-group ml-5 mr-5">
+                    <label for="country">Country</label>
+                    <input class="form-control" type="text" id="country" required name="country" placeholder="Country">
+                </div>
+
+                <!-- USER ZIP -->
+                <div class="form-group ml-5 mr-5">
+                    <label for="zipcode">Zip Code</label>
+                    <input class="form-control" type="number" id="zipcode" required name="zipcode" placeholder="Zipcode">
+                </div>
+
+                <!-- USER JOB TITLE -->
+                <div class="form-group ml-5 mr-5">
+                    <label for="jobTitle">Your Job Title</label>
+                    <input class="form-control" type="text" id="jobTitle" required name="jobTitle" placeholder="JobTitle">
+                </div>
+
+                <!-- USER TYPE -->
+                <div class="form-group ml-5 mr-5">
+                    <label for="role">Chose you Choice</label>
+                    <select name="role" id="role" required class="form-control">
+                    <option value="ROLE_TRIALUSER">Trial-->Free</option>
+                    <option value="ROLE_NORMALUSER">Normal User--> 4€ per month</option>
+                    <option value="ROLE_SUPERUSER">Super User--> 12€ per month</option>
+                </select>
+                </div>
+
+                <!-- SUBMIT -->
+                <button type="submit" id="submitButton" class="w-50 btn form-button ml-5 mr-5">Create Account</button>
+
+            </form>
+        </div>
+    </div>
+</main>
+        <!--=================== Body ============================ -->
+
+        <!--=================== Footer Start ============================ -->
+
+
+        <div th:replace="partials/footer :: footerFragment"></div>
+
+
+        <!--=================== Footer End ============================ -->
+</body>
+<script src='https://kit.fontawesome.com/a076d05399.js'></script>
+<script src="https://www.paypalobjects.com/api/checkout.js"></script>
+<script src="/js/register/register.js"></script>
+</html>

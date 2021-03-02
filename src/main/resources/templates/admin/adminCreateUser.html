@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th ="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <script src='https://kit.fontawesome.com/a076d05399.js'></script>
+    <link href="/css/admin/adminCreateUser.css" type="text/css" rel="stylesheet">
+
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
+
+    <title>Admin Page</title>
+</head>
+<body>
+    <main class="container">
+        <a href="/admin/lookupuser" style="color:black;">
+            <i class='fas fa-arrow-left mt-5' style='font-size:36px'></i>
+        </a>
+
+        <div align="center">
+    <!-- === CREATE USER === -->
+            <form class="contact w-50" th:action="@{/admin/insert/user}" method="post" id="registerForm">
+                <div class="valid" id="notFilled"></div>
+
+                <h3 class="text-center mb-2">Create User</h3>
+
+
+                <!--            E-Mail-->
+                <div class="form-group ml-5 mr-5">
+                <label for="user_mail">User E-Mail</label>
+                    <input type="email" class="form-control" id="user_mail" name="user_mail" required placeholder="E-Mail">
+                </div>
+
+    <!--            Password-->
+                <div class="form-group ml-5 mr-5">
+                <label for="password">Password</label>
+                    <input type="password" class="form-control" id="password" name="password" required placeholder="Password">
+                    <div id="passwordValid" class="valid"></div>
+                </div>
+
+    <!--            Password-->
+                <div class="form-group ml-5 mr-5">
+                <label for="confirm_password">Confirm Password</label>
+                    <input type="password" class="form-control" id="confirm_password" required placeholder="Password">
+                </div>
+
+    <!--            FirstName-->
+                <div class="form-group ml-5 mr-5">
+                    <label for="profile_firstname">Profile Firstname</label>
+                    <input type="text" class="form-control" id="profile_firstname" name="profile_firstname" required placeholder="FirstName">
+                </div>
+
+    <!--            Lastname-->
+                <div class="form-group ml-5 mr-5">
+                <label for="profile_lastname">Profile Lastname</label>
+                    <input type="text" class="form-control" id="profile_lastname" name="profile_lastname" required placeholder="Lastname">
+                </div>
+
+    <!--            Phone-->
+                <div class="form-group ml-5 mr-5">
+                    <label for="profile_phone">Profile Phone</label>
+                    <input type="number" class="form-control" id="profile_phone" name="profile_phone" required placeholder="Phone">
+                </div>
+
+    <!--            Country-->
+                <div class="form-group ml-5 mr-5">
+                <label for="profile_country">Profile Country</label>
+                    <input type="text" class="form-control" id="profile_country" name="profile_country" required placeholder="Country">
+                </div>
+
+    <!--            Address-->
+                <div class="form-group ml-5 mr-5">
+                <label for="profile_address">Profile Address</label>
+                    <input type="text" class="form-control" id="profile_address" name="profile_address" required placeholder="Address">
+                </div>
+
+    <!--            Zipcode-->
+                <div class="form-group ml-5 mr-5">
+                <label for="profile_zip">Profile Zip</label>
+                    <input type="number" class="form-control" id="profile_zip" name="profile_zip" required placeholder="Zipcode">
+                </div>
+
+    <!--            Jobtitle-->
+                <div class="form-group ml-5 mr-5">
+                <label for="profile_jobTitle">Profile Job Title</label>
+                    <input type="text" class="form-control" name="profile_jobTitle" id="profile_jobTitle" required placeholder="Jobtitle">
+                </div>
+
+    <!--            Authority-->
+                <div class="form-group ml-5 mr-5">
+                    <label for="Authority">Authority</label>
+                    <select name="role"  id="Authority" class="form-control" required>
+                        <div th:each="authCheck : ${authCheck}">
+                            <option th:value="${authCheck.getAutchcheck_role()}" th:text="${authCheck.getAutchcheck_role()}"></option>
+                        </div>
+                    </select>
+                </div>
+
+                <button  type="submit" id="submitButton" class="w-50 btn form-button ml-5 mr-5">Create User</button>
+            </form>
+        </div>
+    </main>
+</body>
+
+<script src="/js/admin/adminCreateUser.js"></script>
+</html>

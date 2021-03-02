@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th = "http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
+    <link th:href="@{/css/profile/editOrganization.css}" type="text/css" rel="stylesheet">
+    <title>Your Organization</title>
+</head>
+<body>
+    <header>
+        <!--=================== NAVIGATION ============================ -->
+        <div th:replace="partials/navbar :: navigation" th:with="org=${org}, user=${user}, activePage=${activePage}, auth=${auth}"></div>
+
+
+
+
+        </div>
+    </header>
+    <!--=================== MAIN ============================ -->
+    <main class="container">
+
+            <a th:href="@{'/profile/' + ${user.getUser_mail()}}" style="color:black;">
+                <div class="valid" id="notFilled"></div>
+
+                <i class='fas fa-arrow-left mt-5' style='font-size:36px'></i>
+            </a>
+            <div align="center">
+                <div class="col-sm-12">
+                    <img th:src="@{/images/logo.png/}" style="">
+                </div>
+
+    <!-- === CREATE ORGANIZATION FORM === -->
+                <form class="contact w-50"  th:action="@{/insert/org}" th:fragment="newOrgForm" method="post">
+                    <h3>Create Your Organization</h3>
+
+                    <!-- ORGANIZATION NAME -->
+                    <div class="form-group ml-5 mr-5">
+                        <label for="org_name">Organization Name</label>
+                        <input class="form-control" id="org_name" required type="text" name="org_name" placeholder="Organizatoin Name">
+                    </div>
+
+                    <!-- ORGANIZATION ADDRESS -->
+                    <div class="form-group ml-5 mr-5">
+                        <label for="org_address">Organization Address</label>
+                        <input class="form-control" type="text" id="org_address" required name="org_address" placeholder="Organization Address">
+                    </div>
+
+                    <!-- ORGANIZATION CVR -->
+                    <div class="form-group ml-5 mr-5">
+                        <label for="org_cvr">Organization CVR</label>
+                        <input class="form-control" type="number" id="org_cvr" required name="org_cvr" placeholder="Organization CVR">
+                    </div>
+
+                    <!-- SUBMIT -->
+                    <input type="submit" value="Create" class="w-50 btn form-button ml-5 mr-5">
+                </form>
+            </div>
+    </main>
+    <!--=================== Footer ============================ -->
+    <div th:replace="partials/footer :: footerFragment"></div>
+</body>
+<script src='https://kit.fontawesome.com/a076d05399.js'></script>
+</html>

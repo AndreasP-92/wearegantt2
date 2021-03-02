@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th = "http://www.thymeleaf.org">
+<head>
+
+    <meta charset="UTF-8">
+    <title>Edit Your Profile</title>
+
+    <link th:href="@{/css/main/editprofile.css}" type="text/css" rel="stylesheet">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.6.1/css/all.css" integrity="sha384-gfdkjb5BdAXd+lj+gudLWI+BXq4IuLW5IT+brZEZsLFm++aCMlF1V92rMkPaX4PP" crossorigin="anonymous">
+
+</head>
+<body>
+<header>
+    <!--=================== NAVIGATION ============================ -->
+    <div th:replace="partials/navbar :: navigation" th:with="org=${org}, user=${user}, activePage=${activePage}, auth=${auth}"></div>
+</header>
+
+
+<main class="container">
+    <div align="center">
+
+
+<!-- ==== UPDATE PROFILE === -->
+                    <form class="contact w-50" th:action="@{/update/profile}" th:object="${profile}" method="post">
+                        <input class="contact w-50"  type="text" style="display: none;" th:field="*{profile_id}">
+
+                        <h3>Edit Your Profile</h3>
+
+                        <!-- FIRSTNAME -->
+                        <div class="form-group ml-5 mr-5">
+                            <label for="firstnameinput">Change Your Firstname</label>
+                            <input class="form-control" id="firstnameinput" type="text" th:field="*{profile_firstname}">
+                        </div>
+
+                        <!-- LASTNAME -->
+                        <div class="form-group ml-5 mr-5">
+                            <label for="lastnameinput">Change Your Lastname</label>
+                            <input class="form-control" id="lastnameinput" type="text" th:field="*{profile_lastname}">
+                        </div>
+
+                        <!-- ADDRESS -->
+                        <div class="form-group ml-5 mr-5">
+                            <label for="addressinput">Change Your Address</label>
+                            <input class="form-control" id="addressinput" type="text" th:field="*{profile_address}">
+                        </div>
+
+                        <!-- PHONE -->
+                        <div class="form-group ml-5 mr-5">
+                            <label for="phoneinput">Change Your Phone number</label>
+                            <input class="form-control" id="phoneinput" type="number" th:field="*{profile_phone}">
+                        </div>
+
+                        <!-- COUNTRY -->
+                        <div class="form-group ml-5 mr-5">
+                            <label for="countryinput">Change Your Country</label>
+                            <input class="form-control" id="countryinput" type="text" th:field="*{profile_country}">
+                        </div>
+
+                        <!-- NUMBER -->
+                        <div class="form-group ml-5 mr-5">
+                            <label for="zipinput">Change Your Zipcode</label>
+                            <input class="form-control" id="zipinput" type="number" th:field="*{profile_zip}">
+                        </div>
+
+                        <!-- JOB TITLE -->
+                        <div class="form-group ml-5 mr-5">
+                            <label for="jobtitleinput">Change Your Job title</label>
+                            <input class="form-control" id="jobtitleinput" type="text" th:field="*{profile_jobTitle}">
+                        </div>
+
+                        <!-- SUBMIT -->
+                        <button type="submit" name="button" class="w-50 btn form-button ml-5 mr-5">Save</button>
+                    </form>
+
+
+<!-- === CHANGE PASSWORD === -->
+                    <form class="contact w-50" th:object="${user}" th:action="@{/update/credentials}" method="post"  id="editPassForm">
+                        <div class="valid" id="notFilled"></div>
+                        <input style="display:none" type="text" name="user_id" th:value="*{user_id}">
+
+                        <h3>Edit Your Email & Password</h3>
+
+                        <!-- E-MAIL -->
+                        <div class="form-group ml-5 mr-5">
+                            <label for="email">Change Your Email</label>
+                            <input class="form-control" id="email" type="email" th:field="*{user_mail}">
+                        </div>
+
+                        <!-- FIRST PASSWORD -->
+                        <div class="form-group ml-5 mr-5">
+                            <label for="password">Enter Your Password</label>
+                            <input type="password" id="password" name="pass" class="form-control"  required th:field="*{user_password}"/>
+                        </div>
+                        <div id="passwordValid" class="valid"></div>
+
+                        <!-- SECCOND PASSWORD -->
+                        <div class="form-group ml-5 mr-5">
+                            <label for="confirm_password">Confirm Your Password</label>
+                            <input class="form-control" type="password" id="confirm_password" name="pass" required th:field="*{user_password}"/>
+                        </div>
+
+                        <!-- SUBMIT -->
+                        <button id="submitButton" type="submit" class="w-50 btn form-button ml-5 mr-5">Save</button>
+                    </form>
+
+<!-- === DELETE PROFILE === -->
+                    <form class="contact w-50" id="deleteForm" th:action="@{/delete/profile}" th:object="${user}" method="post">
+
+                        <input class="text-center p-3 mb-1" type="text" style="display: none;" name="user_id" th:value="*{user_id}">
+                        <button type="submit" name="button" id="deleteSubmitButton" class="w-50 btn btn-danger ml-5 mr-5" >Delete Profile</button>
+
+                    </form>
+<!--=== CHANGE SUBSCRIPTION === -->
+                    <form class="contact w-50" th:action="@{/update/profile/subscription}" method="post">
+                        <input type="text" style="display: none;" name="user_id" th:value="${user.getUser_id()}">
+
+                        <div class="form-group ml-5 mr-5">
+                            <label for="subscription">Select new Subscriptoin</label>
+                            <select name="role" id="subscription" class="form-control" required>
+                                    <option th:selected="${'ROLE_NORMALUSER' == auth.getAuth_role()}" value="ROLE_NORMALUSER">Select Normal User --> 4€</option>
+                                    <option th:selected="${'ROLE_SUPERUSER' == auth.getAuth_role()}" value="ROLE_SUPERUSER">Select Super User --> 12€</option>
+                            </select>
+                        </div>
+
+                        <!-- SUBMIT -->
+                        <input class="w-50 btn form-button ml-5 mr-5" type="submit" value="Change Subscription">
+                    </form>
+
+    <!-- === EDIT / NEW ORGANIZATION === -->
+                    <div th:if="${user.fk_orgId == 0 && auth.getAuth_role() == 'ROLE_SUPERUSER' || user.fk_orgId == 0 &&  auth.getAuth_role() == 'ROLE_TRIALUSER' || user.fk_orgId == 0 && auth.getAuth_role() == 'ROLE_ADMIN'}">
+                        <div class="contact w-50">
+                            <a class="w-50 btn form-button ml-5 mr-5"
+                               href="/profile/organization/">New Organization</a>
+                        </div>
+                    </div>
+                    <div th:if="${user.fk_orgId > 0 && auth.getAuth_role() == 'ROLE_SUPERUSER' || user.fk_orgId > 0 &&  auth.getAuth_role() > 'ROLE_TRIALUSER' || user.fk_orgId > 0 && auth.getAuth_role() == 'ROLE_ADMIN'}">
+                        <div class="contact w-50">
+                            <a class="w-50 btn form-button ml-5 mr-5"
+                               th:href="@{'/profile/organization/' + ${org.org_name}}">Edit Organization</a>
+                        </div>
+                    </div>
+                </div>
+</main>
+
+<!--=================== Footer ============================ -->
+<div th:replace="partials/footer :: footerFragment"></div>
+</body>
+<script src="/js/profile/editProfile.js"></script>
+</html>

@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th ="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <link href="/css/admin/adminCreateUser.css" type="text/css" rel="stylesheet">
+    <link th:href="@{/css/main/editNewsfeed.css}" type="text/css" rel="stylesheet">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
+
+    <title>Admin Page</title>
+</head>
+<body>
+    <main class="container">
+        <a href="/admin/organization" style="color:black;">
+            <i class='fas fa-arrow-left mt-5' style='font-size:36px'></i>
+        </a>
+        <div align="center">
+
+    <!-- === EDIT NEWSFEED === -->
+            <form class="contact w-50" th:action="@{/admin/update/news}" th:object="${newsfeed}" method="post">
+                <!--=================== Input ============================ -->
+                <h3 style="text-align: center">Edit News</h3>
+
+                <input type="text" required style="display:none" th:field="*{newsfeed_id}" >
+
+    <!--        NEWSFEED TITLE -->
+                <div class="form-group ml-5 mr-5">
+                    <label for="newsfeed_title">News Title</label>
+                    <input class="form-control" type="text" required th:field="*{newsfeed_title}" >
+                </div>
+
+    <!--        NEWSFEED DATE -->
+                <div class="form-group ml-5 mr-5">
+                    <label for="newsfeed_datetime">News Date</label>
+                    <input class="form-control"  type="datetime" required disabled th:field="*{newsfeed_datetime}">
+                </div>
+
+    <!--        NEWSFEED DESC -->
+                <div class="form-group ml-5 mr-5">
+                    <label for="newsfeed_news">News Description</label>
+                    <textarea class="form-control" rows="3" required th:field="*{newsfeed_news}"></textarea>
+                </div>
+
+    <!--        NEWSFEED SUBMIT -->
+                <button  type="submit" class="w-50 btn form-button ml-5 mr-5"> Save </button>
+
+            </form>
+
+    <!-- === DELETE NEWSFEED === -->
+            <form class="contact w-50"  id="deleteForm" th:action="@{/admin/delete/news}" th:object="${newsfeed}" method="post" >
+                <input type="text" style="display: none;" th:field="*{newsfeed_id}">
+                <button  type="submit" class="w-50 btn btn-danger ml-5 mr-5" id="deleteSubmitButton"> Delete</button>
+            </form>
+        </div>
+    </main>
+</body>
+<script src="/js/admin/adminMain.js"></script>
+<script src='https://kit.fontawesome.com/a076d05399.js'></script>
+</html>

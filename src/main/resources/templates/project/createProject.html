@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th = "http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Your Organization Projects</title>
+
+    <link th:href="@{/css/project/createProject.css}" type="text/css" rel="stylesheet">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.6.1/css/all.css" integrity="sha384-gfdkjb5BdAXd+lj+gudLWI+BXq4IuLW5IT+brZEZsLFm++aCMlF1V92rMkPaX4PP" crossorigin="anonymous">
+</head>
+<body>
+    <header>
+        <!--=================== NAVIGATION ============================ -->
+        <div th:replace="partials/navbar :: navigation" th:with="org=${org}, user=${user}, activePage=${activePage}, auth=${auth}"></div>
+    </header>
+
+        <!--=================== Body ============================ -->
+    <main class="container">
+        <a th:href="@{'/projects/'}" style="color:black;">
+            <i class='fas fa-arrow-left mt-5' style='font-size:36px'></i>
+        </a>
+        <div align="center">
+            <div class="col-sm-12">
+                <img th:src="@{/images/logo.png/}" style="">
+            </div>
+
+        <!-- === INSERT PROJECT === -->
+            <form class="contact w-50" th:action="@{/insert/project}" method="post">
+                <div class="valid" id="notFilled"></div>
+
+                <h3>Create Your Project</h3>
+
+                <!-- PROJECT NAME -->
+                <div class="form-group ml-5 mr-5">
+                    <input class="form-control" type="text" name="project_name" required placeholder="Project Name">
+                </div>
+
+                <!-- PROJECT DESC -->
+                <div class="form-group ml-5 mr-5">
+                    <label for="project_desc">Project Description</label>
+                    <textarea rows="3" class="form-control" type="text" id="project_desc" required name="project_desc" placeholder="Project Description"></textarea>
+                </div>
+
+                <!-- PROJECT START -->
+                <div class="form-group ml-5 mr-5">
+                    <label for="start">Project Start</label>
+                    <input id="start" class="form-control" type="date" name="project_start" required placeholder="Project Start">
+                </div>
+
+                <!-- PROJECT END -->
+                <div class="form-group ml-5 mr-5">
+                    <label for="end">Project End</label>
+                    <input id="end" class="form-control" type="date" name="project_end" required placeholder="Project End">
+                </div>
+
+                <!-- SUBMIT -->
+                <button type="submit" class="w-50 btn form-button ml-5 mr-5">Create Project</button>
+            </form>
+        </div>
+    </main>
+
+    <!--=================== Footer ============================ -->
+    <div th:replace="partials/footer :: footerFragment"></div>
+</body>
+</html>

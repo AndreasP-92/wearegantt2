@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th = "http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Your Organization Projects</title>
+
+    <link th:href="@{/css/admin/adminEditProjects.css}" type="text/css" rel="stylesheet">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.6.1/css/all.css" integrity="sha384-gfdkjb5BdAXd+lj+gudLWI+BXq4IuLW5IT+brZEZsLFm++aCMlF1V92rMkPaX4PP" crossorigin="anonymous">
+</head>
+<body>
+<div class="container">
+    <a href="/admin" style="color:black;">
+        <i class='fas fa-arrow-left mt-5' style='font-size:36px'></i>
+    </a>
+    <div class="row">
+        <div class="col-sm mt-5">
+            <h1 class="text-center mb-2">Edit Project</h1>
+        </div>
+    </div>
+    <div class="d-flex justify-content-center form_container">
+
+        <div class="row">
+
+            <!-- == UPDATE PROJECT == -->
+            <form class="col-sm-6" th:action="@{/admin/update/project}" th:object="${project}" method="post" >
+                <label>Project Id</label>
+                <input class="form-control cInpu" readonly type="text"  th:field="*{project_id}">
+
+                <label>Project Name</label>
+                <input class="form-control cInpu" type="text"  th:field="*{project_name}">
+
+                <label>User Mail</label>
+                <input class="form-control cInpu" type="text" required name="user_mail">
+
+                <label>Project Description</label>
+                <input class="form-control cInpu" type="text"  th:field="*{project_desc}">
+
+                <label>Project Start</label>
+                <input class="form-control cInpu" type="date"  th:field="*{project_start}">
+
+                <label>Project End</label>
+                <input class="form-control" type="date"  th:field="*{project_end}">
+
+                <button type="submit" name="button" class="btn login_btn mt-3 mb-3 w-100">Save Project</button>
+            </form>
+            <div class="col-sm-6" align="left">
+
+                <!-- == JOBTITLE OPTION == -->
+                <div th:each="jobtitle : ${jobTitlesList}">
+                    <form th:action="@{/delete/projectJobTitle}" method="post" th:object="${project}">
+                        <div class="row">
+                            <div class="col-sm-6">
+                                <input style="display: none;" type="text" th:field="*{project_id}">
+
+                                <input style="display: none;" type="text" name="projectJobTitle_id" th:value="${jobtitle.getProjectJobTitle_id()}">
+                                <p th:text="${jobtitle.getJobTitle_name()}"></p>
+                            </div>
+                            <div class="col-sm-6">
+                                <button type="submit" class="btn login_btn mt-3 mb-3">Remove</button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+                <a class="btn login_btn mt-3 mb-3 100" th:href="@{'/projects/create/newJobtitles/'+${project.project_id}}">Add More Job Titles</a>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+</html>

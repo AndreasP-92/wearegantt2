@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th = "http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Your Organization Projects</title>
+
+    <link th:href="@{/css/admin/adminEditOrganizations.css}" type="text/css" rel="stylesheet">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.6.1/css/all.css" integrity="sha384-gfdkjb5BdAXd+lj+gudLWI+BXq4IuLW5IT+brZEZsLFm++aCMlF1V92rMkPaX4PP" crossorigin="anonymous">
+</head>
+<body>
+    <main class="container">
+        <a href="/admin/organization" style="color:black;">
+            <i class='fas fa-arrow-left mt-5' style='font-size:36px'></i>
+        </a>
+        <div align="center">
+    <!-- === EDIT ORGANIZATION === -->
+            <form class="contact w-50" th:action="@{/admin/update/org}" th:object="${org}" method="post">
+                <h3>Edit Organization</h3>
+
+            <!-- ORGANIZATION ID -->
+                <div class="form-group ml-5 mr-5">
+                    <label for="org_id">Organization ID</label>
+                <input type="text" class="form-control input_pass" readonly required th:field="*{org_id}">
+                </div>
+
+                <!-- ORGANIZATION NAME -->
+                <div class="form-group ml-5 mr-5">
+                    <label for="org_name">Organization Name</label>
+                    <input type="text" class="form-control input_pass" required th:field="*{org_name}">
+                </div>
+
+                <!-- ORGANIZATION ADDRESS -->
+                <div class="form-group ml-5 mr-5">
+                    <label for="org_address">Organization Address</label>
+                    <input type="text" class="form-control input_pass" required th:field="*{org_address}">
+                </div>
+
+                <!-- ORGANIZATION CVR -->
+                <div class="form-group ml-5 mr-5">
+                    <label for="org_cvr">Organization CVR</label>
+                    <input type="text" class="form-control input_pass" required th:field="*{org_cvr}">
+                </div>
+
+                <!-- ORGANIZATION SUBMIT -->
+                <button type="submit" class="w-50 btn form-button ml-5 mr-5">Save Organizations</button>
+
+            </form>
+
+    <!-- === DELETE ORGANIZATION === -->
+            <form class="contact w-50"  id="deleteForm" th:action="@{/admin/delete/org}" th:object="${org}" method="post" >
+                <input type="text" style="display: none;" th:field="*{org_id}">
+                <button  type="submit" class="w-50 btn btn-danger ml-5 mr-5" id="deleteSubmitButton">Delete Organization</button>
+            </form>
+        </div>
+    </main>
+</body>
+<script src="/js/admin/adminMain.js"></script>
+</html>

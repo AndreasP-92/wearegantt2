@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th = "http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title th:text="${project.getProject_name()+' - Gantt'}"></title>
+
+
+    <link href="/css/profile/gantt.css" type="text/css" rel="stylesheet">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.6.1/css/all.css" integrity="sha384-gfdkjb5BdAXd+lj+gudLWI+BXq4IuLW5IT+brZEZsLFm++aCMlF1V92rMkPaX4PP" crossorigin="anonymous">
+</head>
+<body>
+    <header>
+        <!--=================== NAVIGATION ============================ -->
+        <div th:replace="partials/navbar :: navigation" th:with="org=${org}, user=${user}, activePage=${activePage}, auth=${auth}"></div>
+
+
+
+
+        </div>
+    </header>
+    <main class="">
+<!-- ======================= SIDE NAVIGATION ==================== -->
+        <div id="mySidenav" class="sidenav">
+            <div class="container">
+                <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
+                <h2 class="sidenavHeaders">Project Settings</h2>
+                <a th:href="@{'/projects/create/task/'+${project.getProject_id()}}">Add Task</a>
+                <a th:href="@{'/profile/organization/'+${org.getOrg_name()}}">Add Employee</a>
+                <a th:href="@{'/projects/edit/'+${project.getProject_id}}">Edit Project</a>
+            </div>
+        </div>
+
+        <!-- Use any element to open the sidenav -->
+        <span id="sideNavBurger" onclick="openNav()">
+            <i class="fas fa-bars" style="font-size: 35px; padding-top: 40px; padding-left: 40px; width: 40px;"></i>
+        </span>
+        <h4 class="ml-4 mt-2">Settings</h4>
+
+<!-- END -->
+        <div class="row">
+            <div class="col-sm-6">
+                <div class="ml-3">
+                    <table class="table mt-5 table-striped table-bordered table-hover">
+                        <thead class="thead-dark">
+                            <tr>
+                                <th scope="col ">#</th>
+                                <th scope="col ">Task Name</th>
+                                <th scope="col ">Position</th>
+                                <th scope="col ">Task Owner</th>
+                                <th scope="col ">Phase</th>
+                                <th scope="col">Duration</th>
+                                <th scope="col">Start</th>
+                                <th scope="col">End</th>
+                                <th scope="col">Action</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+<!-- === TASK FOR-EACH === -->
+                            <tr th:each="task : ${taskList}" class="mt-5">
+                                <td class="number"></td>
+                                <td th:text="${task.task_name}">Task Name</td>
+                                <td th:text="${task.fk_jobTitleName}">Position</td>
+                                <td th:text="${task.fk_profileName}">Task Owner</td>
+                                <td th:text="${task.fk_ganttPhaseName}">Phase</td>
+                                <td th:text="${task.task_duration} + ' Days'">Duration</td>
+                                <td th:text="${task.task_start}">Start</td>
+                                <td th:text="${task.task_end}">End</td>
+
+                            <!-- EDIT BUTTON -->
+                                <td><a th:href="@{'/gantt/edit/task/'+${task.task_id}}" class="btn btn-warning">Edit Task</a></td></a>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+<!-- === GANT DIAGRAM === -->
+            <div class="col-sm-6">
+                <div class="mr-3">
+                    <div class="mt-5">
+                        <div class="gantt">
+                            <div class="gantt__row gantt__row--months">
+                                <div class="gantt__row-first"></div>
+                                <span>Jan</span><span>Feb</span><span>Mar</span>
+                                <span>Apr</span><span>May</span><span>Jun</span>
+                                <span>Jul</span><span>Aug</span><span>Sep</span>
+                                <span>Oct</span><span>Nov</span><span>Dec</span>
+
+                            </div>
+                            <div class="gantt__row gantt__row--lines" data-month="5">
+                                <span></span><span></span><span></span>
+                                <span></span><span></span><span></span>
+                                <span></span><span></span><span></span>
+                                <span></span><span></span><span></span>
+                            </div>
+
+<!-- === TASK'S FOR DIAGRAM FOR-EACH === -->
+                            <span th:each="taskList : ${taskList}">
+                                <div class="gantt__row">
+                                    <div th:text="${taskList.fk_profileName}" class="gantt__row-first">
+                                        profile Name
+                                    </div>
+                                    <ul class="gantt__row-bars" th:switch="${taskList.fk_ganttPhaseName}">
+                                        <li th:case="${'Analysis'}"
+                                            th:title="${taskList.task_desc}"
+                                            th:style="|grid-column: ${taskList.task_processStart}/${taskList.task_processEnd}; background-color: #343a40; cursor: help;|"
+                                            th:text="${taskList.task_name}"></li>
+                                        <li th:case="${'Design'}"
+                                            th:title="${taskList.task_desc}"
+                                            th:style="|grid-column: ${taskList.task_processStart}/${taskList.task_processEnd}; background-color: #33a541; cursor: help;|"
+                                            th:text="${taskList.task_name}"></li>
+                                        <li th:case="${'Development'}"
+                                            th:title="${taskList.task_desc}"
+                                            th:style="|grid-column: ${taskList.task_processStart}/${taskList.task_processEnd}; background-color: #ccb40e; cursor: help;|"
+                                            th:text="${taskList.task_name}"></li>
+                                        <li th:case="${'Testing'}"
+                                            th:title="${taskList.task_desc}"
+                                            th:style="|grid-column: ${taskList.task_processStart}/${taskList.task_processEnd}; background-color: #7d6e02; cursor: help;|"
+                                            th:text="${taskList.task_name}"></li>
+                                    </ul>
+                                </div>
+                            </span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- UNDERSTANDING OF COLOR -->
+        <div class="row">
+            <div class="col-sm-6"></div>
+            <div align="left" class="col-sm-6">
+                <div class="col-sm-5 row">
+                    <div class="col-sm-4">
+                        <p>Analysis :</p>
+                    </div>
+                    <div class="col-sm-2">
+                        <span class="gatt_color_meaning" style="background-color: #343a40;"></span>
+                    </div>
+                </div>
+                <div class="col-sm-5 row">
+                    <div class="col-sm-4">
+                        <p>Design :</p>
+                    </div>
+                    <div class="col-sm-2">
+                        <span class="gatt_color_meaning" style="background-color: #33a541;"></span>
+                    </div>
+                </div>
+                <div class="col-sm-5 row">
+                    <div class="col-sm-4">
+                        <p>Development :</p>
+                    </div>
+                    <div class="col-sm-2">
+                        <span class="gatt_color_meaning" style="background-color: #ccb40e;"></span>
+                    </div>
+                </div>
+                <div class="col-sm-5 row">
+                    <div class="col-sm-4">
+                        <p>Testing :</p>
+                    </div>
+                    <div class="col-sm-2">
+                        <span class="gatt_color_meaning" style="background-color: #7d6e02;"></span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+</body>
+    <script src="/js/profile/gantt.js"></script>
+</html>

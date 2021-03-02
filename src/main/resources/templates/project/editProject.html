@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th = "http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Your Organization Projects</title>
+
+    <link th:href="@{/css/project/editproject.css}" type="text/css" rel="stylesheet">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.6.1/css/all.css" integrity="sha384-gfdkjb5BdAXd+lj+gudLWI+BXq4IuLW5IT+brZEZsLFm++aCMlF1V92rMkPaX4PP" crossorigin="anonymous">
+</head>
+<body>
+<header>
+    <!--=================== NAVIGATION ============================ -->
+    <div th:replace="partials/navbar :: navigation" th:with="org=${org}, user=${user}, activePage=${activePage}, auth=${auth}"></div>
+
+
+
+
+    </div>
+</header>
+    <main class="container">
+        <a th:href="@{'/projects/'}" style="color:black;">
+            <i class='fas fa-arrow-left mt-5' style='font-size:36px'></i>
+        </a>
+        <div align="center">
+        <div class="col-sm-12">
+            <img th:src="@{/images/logo.png/}" style="">
+        </div>
+        <div class="row">
+
+<!-- == UPDATE PROJECT == -->
+            <form class="col-sm-6 contact w-50" th:action="@{/update/project}" th:object="${project}" method="post" >
+                <div class="valid" id="notFilled"></div>
+                <!-- PROJECT ID -->
+                <div class="form-group ml-5 mr-5">
+                    <label>Project Id</label>
+                    <input class="form-control" readonly type="text" required th:field="*{project_id}">
+                </div>
+
+                <!-- PROJECT NAME -->
+                <div class="form-group ml-5 mr-5">
+                    <label>Project Name</label>
+                    <input class="form-control" type="text" required th:field="*{project_name}">
+                </div>
+
+                <!-- PROJECT DESC -->
+                <div class="form-group ml-5 mr-5">
+                    <label>Project Description</label>
+                    <input class="form-control" type="text" required th:field="*{project_desc}">
+                </div>
+
+                <!-- PROJECT START -->
+                <div class="form-group ml-5 mr-5">
+                    <label>Project Start</label>
+                    <input class="form-control" type="date" required th:field="*{project_start}">
+                </div>
+
+                <!-- PROJECT END -->
+                <div class="form-group ml-5 mr-5">
+                    <label>Project End</label>
+                    <input class="form-control" type="date" required  th:field="*{project_end}">
+                </div>
+
+                <!-- PROJECT DURATION -->
+                <div class="form-group ml-5 mr-5">
+                    <label>Project Duration </label>
+                    <input class="form-control" type="text" required disabled  th:value="${project.getProject_duration()} + ' Days'">
+                </div>
+
+                <!-- SUBMIT -->
+                <button type="submit" required class="btn form-button ml-5 mr-5 w-50">Save Project</button>
+            </form>
+<!-- == JOBTITLE OPTION == -->
+            <div class="col-sm-6 contact w-50" align="left">
+                <div th:each="jobtitle : ${jobTitlesList}">
+                    <form th:action="@{/delete/projectJobTitle}" method="post" th:object="${project}">
+                        <div class="row">
+
+                            <!-- PROJECT ID -->
+                            <div class="col-sm-6">
+                                <input style="display: none;" type="text" th:field="*{project_id}">
+
+                                <!-- PROJECT JOB TITLE -->
+                                <input style="display: none;" type="text" name="projectJobTitle_id" th:value="${jobtitle.getProjectJobTitle_id()}">
+                                <p class="text-white" th:text="${jobtitle.getJobTitle_name()}"></p>
+                            </div>
+                            <div class="col-sm-6">
+
+                                <!-- SUBMIT -->
+                                <button type="submit" class="btn form-button mt-3 mb-3">Remove</button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+                <a class="btn form-button mt-3 mb-3 100" th:href="@{'/projects/create/newJobtitles/'+${project.project_id}}">Add More Job Titles</a>
+            </div>
+        </div>
+
+<!-- == DELETE PROJECT == -->
+        <div align="center">
+            <form class="contact w-50" th:action="@{/delete/project}" id="deleteForm" method="post" th:object="${project}" align="center">
+
+                <!-- PROJECT ID -->
+                <input class="text-center p-3 mb-1" style="display: none" type="text" th:field="*{project_id}">
+
+                <!-- SUBMIT -->
+                <button type="submit" id="deleteSubmitButton" class="btn bg-danger w-50 text-light">DELETE PROJECT</button>
+            </form>
+        </div>
+        </div>
+    </main>
+
+    <!--=================== Footer ============================ -->
+    <div th:replace="partials/footer :: footerFragment"></div>
+</body>
+<script src="/js/main/main.js"></script>
+</html>

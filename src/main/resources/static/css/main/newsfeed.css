@@ -1,0 +1,88 @@
+.moveButtonBottom{
+    position: absolute;
+    bottom: 0;
+}
+
+.moveBottom{
+    position: absolute;
+    bottom: 17px;
+}
+
+.nav-active{
+    border-bottom: 2px solid white;
+}
+
+#news {
+    background-color:#707070; height:150px;
+    border-radius: 5%;
+    width:50%;
+    margin-top:20px;
+    color:white;
+}
+
+/*#news h3 {*/
+/*    color: #ffffff;*/
+/*    display: block;*/
+/*    font-size: 30px;*/
+/*    font-weight: 400;*/
+/*}*/
+
+/*p {*/
+/*    margin-top: 0;*/
+/*}*/
+
+.brand_logo_container {
+    position: absolute;
+    height: 40px;
+    width: 40px;
+    top: -75px;
+    border-radius: 50%;
+    background: #ffbdbd;
+    padding: 10px;
+    text-align: center;
+    margin-top:95px;
+    margin-left:-50px;
+}
+.brand_logo {
+    height: 30px;
+    width: 30px;
+    border-radius: 50%;
+    border: 2px solid white;
+    margin-top:-9px;
+    margin-left:-5px;
+
+}
+
+/*.newsBox{*/
+/*    background-color:#707070; height:300px;*/
+/*    border-radius: 5%;*/
+/*    !*cursor: pointer;*!*/
+/*}*/
+
+.projectBox{
+    background-color:#707070; height:300px;
+    border-radius: 5%;
+    width:50%;
+    margin-top:20px;
+    /*cursor: pointer;*/
+}
+p{
+    color:white;
+}
+h4{
+    color:white;
+}
+a{
+    text-decoration: none!important;
+}
+
+.buttons {
+    background: #34d4b1;;
+    border-radius: 10px;
+    border: 1px solid black;;
+    height: 33px;
+    color:black;
+    font-weight: bold;
+    display: block;
+    text-align: center;
+}
